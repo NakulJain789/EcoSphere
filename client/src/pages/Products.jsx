@@ -7,7 +7,7 @@ import {
   X,
   ArrowUpDown,
 } from "lucide-react";
-import { productService } from "../services/api";
+import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import { ProductCardSkeleton } from "../components/common/Skeleton";
 import EmptyState from "../components/common/EmptyState";
@@ -70,8 +70,11 @@ const Products = () => {
           minEcoScore: minEcoScore ? Number(minEcoScore) : undefined,
         };
 
-        const res = await productService.getProducts(params);
-        console.log("PRODUCT API RESPONSE:", res);
+        const response = await axios.get(
+          "https://ecosphere-pd1w.onrender.com/api/products",
+          { params },
+        );
+        const res = response.data;
         const productList = Array.isArray(res) ? res : res.products || [];
         setProducts(productList);
         setTotalCount(res.total || productList.length);
