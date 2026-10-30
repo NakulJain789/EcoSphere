@@ -71,11 +71,11 @@ const Products = () => {
         };
 
         const res = await productService.getProducts(params);
-        if (res.success) {
-          setProducts(res.products || []);
-          setTotalCount(res.total || 0);
-          setTotalPages(res.pages || 1);
-        }
+        console.log("PRODUCT API RESPONSE:", res);
+        const productList = Array.isArray(res) ? res : res.products || [];
+        setProducts(productList);
+        setTotalCount(res.total || productList.length);
+        setTotalPages(res.pages || 1);
       } catch (err) {
         console.error("Error fetching catalog:", err);
       } finally {
