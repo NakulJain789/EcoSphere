@@ -1,33 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Search, Filter, SlidersHorizontal, X, ArrowUpDown } from 'lucide-react';
-import { productService } from '../services/api';
-import ProductCard from '../components/ProductCard';
-import { ProductCardSkeleton } from '../components/common/Skeleton';
-import EmptyState from '../components/common/EmptyState';
-import Button from '../components/common/Button';
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import {
+  Search,
+  Filter,
+  SlidersHorizontal,
+  X,
+  ArrowUpDown,
+} from "lucide-react";
+import { productService } from "../services/api";
+import ProductCard from "../components/ProductCard";
+import { ProductCardSkeleton } from "../components/common/Skeleton";
+import EmptyState from "../components/common/EmptyState";
+import Button from "../components/common/Button";
 
 const categories = [
-  'All',
-  'Reusable Essentials',
-  'Sustainable Home',
-  'Sustainable Fashion',
-  'Personal Care',
-  'Zero Waste',
-  'Upcycled',
-  'Travel',
-  'Eco Tech Accessories',
+  "All",
+  "Reusable Essentials",
+  "Sustainable Home",
+  "Sustainable Fashion",
+  "Personal Care",
+  "Zero Waste",
+  "Upcycled",
+  "Travel",
+  "Eco Tech Accessories",
 ];
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // URL state synchronization
-  const initialCategory = searchParams.get('category') || 'All';
-  const initialSearch = searchParams.get('search') || '';
-  const initialMinEcoScore = searchParams.get('minEcoScore') || '';
-  const initialSort = searchParams.get('sort') || 'newest';
-  const initialPage = parseInt(searchParams.get('page') || '1', 10);
+  const initialCategory = searchParams.get("category") || "All";
+  const initialSearch = searchParams.get("search") || "";
+  const initialMinEcoScore = searchParams.get("minEcoScore") || "";
+  const initialSort = searchParams.get("sort") || "newest";
+  const initialPage = parseInt(searchParams.get("page") || "1", 10);
 
   const [products, setProducts] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -44,11 +50,11 @@ const Products = () => {
 
   // Sync state with URL params
   useEffect(() => {
-    setSelectedCategory(searchParams.get('category') || 'All');
-    setSearchInput(searchParams.get('search') || '');
-    setMinEcoScore(searchParams.get('minEcoScore') || '');
-    setSortOption(searchParams.get('sort') || 'newest');
-    setPage(parseInt(searchParams.get('page') || '1', 10));
+    setSelectedCategory(searchParams.get("category") || "All");
+    setSearchInput(searchParams.get("search") || "");
+    setMinEcoScore(searchParams.get("minEcoScore") || "");
+    setSortOption(searchParams.get("sort") || "newest");
+    setPage(parseInt(searchParams.get("page") || "1", 10));
   }, [searchParams]);
 
   // Fetch products
@@ -59,10 +65,9 @@ const Products = () => {
         const params = {
           page,
           limit: 12,
-          category: selectedCategory !== 'All' ? selectedCategory : undefined,
-          search: searchInput.trim() !== '' ? searchInput.trim() : undefined,
+          category: selectedCategory !== "All" ? selectedCategory : undefined,
+          search: searchInput.trim() !== "" ? searchInput.trim() : undefined,
           minEcoScore: minEcoScore ? Number(minEcoScore) : undefined,
-          sort: sortOption,
         };
 
         const res = await productService.getProducts(params);
@@ -72,7 +77,7 @@ const Products = () => {
           setTotalPages(res.pages || 1);
         }
       } catch (err) {
-        console.error('Error fetching catalog:', err);
+        console.error("Error fetching catalog:", err);
       } finally {
         setLoading(false);
       }
@@ -88,7 +93,7 @@ const Products = () => {
 
     // Clean up empty params
     Object.keys(merged).forEach((key) => {
-      if (!merged[key] || merged[key] === 'All' || merged[key] === '') {
+      if (!merged[key] || merged[key] === "All" || merged[key] === "") {
         delete merged[key];
       }
     });
@@ -109,7 +114,7 @@ const Products = () => {
   };
 
   const handleEcoScoreToggle = () => {
-    const nextVal = minEcoScore === '80' ? '' : '80';
+    const nextVal = minEcoScore === "80" ? "" : "80";
     setMinEcoScore(nextVal);
     setPage(1);
     updateUrlParams({ minEcoScore: nextVal, page: 1 });
@@ -123,10 +128,10 @@ const Products = () => {
   };
 
   const clearAllFilters = () => {
-    setSelectedCategory('All');
-    setSearchInput('');
-    setMinEcoScore('');
-    setSortOption('newest');
+    setSelectedCategory("All");
+    setSearchInput("");
+    setMinEcoScore("");
+    setSortOption("newest");
     setPage(1);
     setSearchParams({});
   };
@@ -143,13 +148,17 @@ const Products = () => {
             Shop Conscious Essentials
           </h1>
           <p className="text-sm text-charcoal-600 dark:text-charcoal-300 mt-1">
-            Showing {totalCount} verified zero-waste and circular products from MongoDB.
+            Showing {totalCount} verified zero-waste and circular products from
+            MongoDB.
           </p>
         </div>
 
         {/* Search Bar & Sorting */}
         <div className="flex flex-wrap items-center gap-3">
-          <form onSubmit={handleSearchSubmit} className="relative flex-1 sm:w-64">
+          <form
+            onSubmit={handleSearchSubmit}
+            className="relative flex-1 sm:w-64"
+          >
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-charcoal-400" />
             <input
               type="text"
@@ -186,8 +195,8 @@ const Products = () => {
             onClick={() => handleCategoryClick(category)}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               selectedCategory === category
-                ? 'bg-forest-800 text-cream-50 shadow-sm'
-                : 'bg-white dark:bg-charcoal-900 text-charcoal-700 dark:text-charcoal-200 border border-sage-200 dark:border-charcoal-700 hover:border-forest-600'
+                ? "bg-forest-800 text-cream-50 shadow-sm"
+                : "bg-white dark:bg-charcoal-900 text-charcoal-700 dark:text-charcoal-200 border border-sage-200 dark:border-charcoal-700 hover:border-forest-600"
             }`}
           >
             {category}
@@ -198,17 +207,17 @@ const Products = () => {
         <button
           onClick={handleEcoScoreToggle}
           className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-            minEcoScore === '80'
-              ? 'bg-amber-accent text-white shadow-sm'
-              : 'bg-amber-50 dark:bg-amber-950/30 text-amber-accentDark dark:text-amber-300 border border-amber-200 dark:border-amber-900/50 hover:bg-amber-100'
+            minEcoScore === "80"
+              ? "bg-amber-accent text-white shadow-sm"
+              : "bg-amber-50 dark:bg-amber-950/30 text-amber-accentDark dark:text-amber-300 border border-amber-200 dark:border-amber-900/50 hover:bg-amber-100"
           }`}
         >
           <span>Score 80+ Only</span>
-          {minEcoScore === '80' && <X className="w-3.5 h-3.5" />}
+          {minEcoScore === "80" && <X className="w-3.5 h-3.5" />}
         </button>
 
         {/* Reset button if filters active */}
-        {(selectedCategory !== 'All' || searchInput || minEcoScore) && (
+        {(selectedCategory !== "All" || searchInput || minEcoScore) && (
           <button
             onClick={clearAllFilters}
             className="text-xs text-rose-600 dark:text-rose-400 font-semibold hover:underline ml-2"
