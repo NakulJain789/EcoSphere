@@ -2,6 +2,12 @@
 > **Shop better. Impact the planet less.**
 > A production-grade MERN e-commerce platform combining circular lifecycle analytics, 0–100 EcoScore scoring, zero-greenwashing transparent metrics, and interactive 3D web experiences.
 
+🌐 Live Demo
+
+"Visit EcoSphere Live Demo" (https://ecosphere-flax.vercel.app)
+
+«Explore the live sustainable e-commerce platform, including eco-friendly products, EcoScore, sustainability insights, cart, and more.»
+
 [![MERN Stack](https://img.shields.io/badge/Stack-MERN-green.svg)](https://reactjs.org/)
 [![Three.js](https://img.shields.io/badge/3D-Three.js%20%2F%20R3F-black.svg)](https://threejs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38bdf8.svg)](https://tailwindcss.com/)
@@ -386,6 +392,12 @@ For hackathon judges and evaluators, the login page features **one-click demo lo
    - Visit `/how-ecoscore-works` and `/pitch` to showcase the mathematical algorithm and hackathon design architecture.
 
 ---
+
+🚀 Deployment
+
+- Frontend: Vercel — https://ecosphere-flax.vercel.app
+- Backend: Render — https://ecosphere-pd1w.onrender.com
+- Database: MongoDB Atlas
 
 ## 🌐 Deployment Guide
 
